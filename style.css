@@ -1,0 +1,233 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    background: #000;
+    color: white;
+    height: 100vh;
+}
+
+/* Cosmic Background */
+.cosmic-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #1a0033, #4a0080, #0066cc, #000000);
+    background-size: 400% 400%;
+    animation: gradientShift 10s ease infinite;
+    z-index: -1;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Text Sequence */
+.text-sequence {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+}
+
+.text-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    font-weight: bold;
+    opacity: 0;
+    text-shadow:
+        0 0 20px rgba(255, 105, 180, 0.8),
+        0 0 40px rgba(255, 105, 180, 0.6);
+    background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 300% 300%;
+    animation: textGradient 3s ease infinite;
+}
+
+.text-message.active {
+    animation: textReveal 3s ease-in-out forwards;
+}
+
+@keyframes textGradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes textReveal {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    30% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    70% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+}
+
+/* Icons Container */
+.icons-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.icons-container.show {
+    opacity: 1;
+    visibility: visible;
+    animation: iconsAppear 1s ease-out;
+}
+
+@keyframes iconsAppear {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.icon-item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 120px;
+    animation: iconBounce 0.6s ease-out;
+}
+
+.app-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow:
+        0 0 20px rgba(255, 255, 255, 0.3),
+        inset 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Icon Colors */
+.chatgpt {
+    background: linear-gradient(135deg, #74aa9c, #10a37f);
+}
+
+.gemini {
+    background: linear-gradient(135deg, #8e75c5, #6750a4);
+}
+
+.vscode {
+    background: linear-gradient(135deg, #3c99d4, #0066b8);
+}
+
+.deepseek {
+    background: linear-gradient(135deg, #ff6b6b, #ff4757);
+}
+
+/* Hover Effects */
+.icon-item:hover .app-icon {
+    transform: scale(1.2);
+    box-shadow:
+        0 0 30px rgba(255, 105, 180, 0.8),
+        0 0 60px rgba(255, 105, 180, 0.4);
+}
+
+/* Pookie Symbol */
+.pookie-symbol {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 1.2rem;
+    animation: twinkle 2s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.1) rotate(10deg);
+    }
+}
+
+/* Icon Entry Animations */
+@keyframes iconBounce {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .text-message {
+        font-size: 2.5rem;
+    }
+
+    .icons-container {
+        gap: 30px;
+    }
+
+    .icon-item {
+        width: 100px;
+        height: 100px;
+    }
+
+    .app-icon {
+        width: 70px;
+        height: 70px;
+    }
+}
