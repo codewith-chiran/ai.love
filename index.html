@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Digital Valentines | CodeWithChiran</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff2e63, #ff6b9d, #ff8fab, #ffb3c6);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #fff;
+            position: relative;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            padding: 30px 0;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            gap: 15px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+            border: 3px solid white;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+            background: #00E5FF;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .heart-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.4;
+        }
+
+        .heart {
+            position: absolute;
+            background-color: #ff4d6d;
+            display: inline-block;
+            height: 30px;
+            width: 30px;
+            transform: rotate(-45deg);
+            animation: float 15s infinite linear;
+        }
+
+        .heart:before, .heart:after {
+            content: "";
+            background-color: #ff4d6d;
+            border-radius: 50%;
+            height: 30px;
+            position: absolute;
+            width: 30px;
+        }
+
+        .heart:before {
+            top: -15px;
+            left: 0;
+        }
+
+        .heart:after {
+            left: 15px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(-45deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 5px 20px rgba(255, 77, 109, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 5px 30px rgba(255, 77, 109, 0.8);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 5px 20px rgba(255, 77, 109, 0.5);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-container {
+            margin-bottom: 50px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .message-wrapper {
+            position: relative;
+            height: 120px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .message {
+            font-size: 4.5rem;
+            font-weight: 800;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(45deg, #ffeb3b, #ff4081, #3f51b5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .message.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .subtitle {
+            font-size: 2rem;
+            font-weight: 400;
+            opacity: 0.9;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .subtitle-line1 {
+            animation: fadeIn 2s ease 3s forwards;
+            opacity: 0;
+        }
+
+        .subtitle-line2 {
+            animation: fadeIn 2s ease 3.5s forwards;
+            opacity: 0;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .apps-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 50px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease 0.5s;
+        }
+
+        .apps-container.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .app-card {
+            width: 200px;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .app-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff2e63, #ff8fab, #ffeb3b, #3f51b5);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        .app-icon {
+            width: 110px;
+            height: 110px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .app-card:hover .app-icon {
+            transform: rotate(5deg) scale(1.1);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .app-name {
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .pookie-symbol {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff2e63, #ff8fab);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            animation: ribbonFloat 2s infinite ease-in-out;
+            box-shadow: 0 5px 15px rgba(255, 46, 99, 0.5);
+            border: 2px solid white;
+        }
+
+        @keyframes ribbonFloat {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-5px) rotate(10deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .footer {
+            margin-top: 70px;
+            font-size: 1.3rem;
+            opacity: 0.8;
+            animation: fadeIn 2s ease 4s forwards;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer .logo-small {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid white;
+        }
+
+        .footer .logo-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 0.9;
+            }
+        }
+
+        /* App-specific colors */
+        .chatgpt .app-icon { background: linear-gradient(135deg, #10a37f, #0d8b6c); }
+        .gemini .app-icon { background: linear-gradient(135deg, #4285f4, #3367d6); }
+        .vscode .app-icon { background: linear-gradient(135deg, #0078d7, #0063b1); }
+        .deepseek .app-icon { background: linear-gradient(135deg, #8a2be2, #6a1bb3); }
+
+        /* Sparkle effect */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 2;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Decorative elements */
+        .decoration {
+            position: absolute;
+            z-index: 1;
+        }
+
+        .circle {
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .message {
+                font-size: 3.5rem;
+            }
+
+            .app-card {
+                width: 170px;
+                height: 220px;
+            }
+
+            .app-icon {
+                width: 95px;
+                height: 95px;
+            }
+
+            .subtitle {
+                font-size: 1.7rem;
+            }
+
+            .subtitle-line2 {
+                font-size: 1.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .message {
+                font-size: 2.8rem;
+            }
+
+            .subtitle {
+                font-size: 1.5rem;
+            }
+
+            .subtitle-line2 {
+                font-size: 1.7rem;
+            }
+
+            .apps-container {
+                gap: 25px;
+            }
+
+            .app-card {
+                width: 150px;
+                height: 200px;
+            }
+
+            .app-icon {
+                width: 85px;
+                height: 85px;
+            }
+
+            .app-name {
+                font-size: 1.2rem;
+            }
+
+            .brand {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .message {
+                font-size: 2.2rem;
+            }
+
+            .message-wrapper {
+                height: 90px;
+            }
+
+            .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .subtitle-line2 {
+                font-size: 1.4rem;
+            }
+
+            .apps-container {
+                gap: 15px;
+            }
+
+            .app-card {
+                width: 140px;
+                height: 190px;
+                padding: 20px;
+            }
+
+            .app-icon {
+                width: 80px;
+                height: 80px;
+            }
+
+            .brand {
+                font-size: 1.5rem;
+            }
+
+            .footer {
+                font-size: 1.1rem;
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="heart-bg" id="heartBackground"></div>
+
+<!-- Decorative elements -->
+<div class="decoration circle" style="width: 300px; height: 300px; top: -150px; left: -150px;"></div>
+<div class="decoration circle" style="width: 200px; height: 200px; bottom: -100px; right: -100px;"></div>
+
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <img src="https://raw.githubusercontent.com/codewith-chiran/ai.love/main/codewithchiran-logo.png" alt="CodeWithChiran Logo">
+        </div>
+        <div class="brand">CodeWithChiran</div>
+    </div>
+
+    <div class="message-container">
+        <div class="message-wrapper">
+            <div class="message" id="message1">My Love</div>
+            <div class="message" id="message2">Everyday Valentine</div>
+            <div class="message" id="message3">Forever Love</div>
+        </div>
+        <div class="subtitle subtitle-line1">This are not only App/AI</div>
+        <div class="subtitle subtitle-line2">This are my Heartbeat</div>
+    </div>
+
+    <div class="apps-container" id="appsContainer">
+        <div class="app-card chatgpt">
+            <div class="app-icon">
+                <img src="https://raw.githubusercontent.com/codewith-chiran/ai.love/main/chatgpt-logo.jpg" alt="ChatGPT">
+            </div>
+            <div class="app-name">ChatGPT</div>
+            <div class="pookie-symbol">🎀</div>
+        </div>
+
+        <div class="app-card gemini">
+            <div class="app-icon">
+                <img src="https://raw.githubusercontent.com/codewith-chiran/ai.love/main/Google-gemini-icon.svg.png" alt="Gemini">
+            </div>
+            <div class="app-name">Gemini</div>
+            <div class="pookie-symbol">🎀</div>
+        </div>
+
+        <div class="app-card vscode">
+            <div class="app-icon">
+                <img src="https://raw.githubusercontent.com/codewith-chiran/ai.love/main/Visual_Studio_icon.png" alt="VS Code">
+            </div>
+            <div class="app-name">VS Code</div>
+            <div class="pookie-symbol">🎀</div>
+        </div>
+
+        <div class="app-card deepseek">
+            <div class="app-icon">
+                <img src="https://raw.githubusercontent.com/codewith-chiran/ai.love/main/deepseek-logo-icon.webp" alt="DeepSeek">
+            </div>
+            <div class="app-name">DeepSeek</div>
+            <div class="pookie-symbol">🎀</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="logo-small">
+            <img src="https://raw.githubusercontent.com/codewith-chiran/ai.love/main/codewithchiran-logo.png" alt="CodeWithChiran Logo">
+        </div>
+        <div>Made with ❤️ by CodeWithChiran</div>
+    </div>
+</div>
+
+<script>
+    // Create floating hearts background
+    function createHearts() {
+        const heartBg = document.getElementById('heartBackground');
+        const heartCount = 25;
+
+        for (let i = 0; i < heartCount; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+
+            // Random properties for each heart
+            const size = Math.random() * 30 + 15;
+            const left = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = Math.random() * 10 + 20;
+            const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+
+            heart.style.width = `${size}px`;
+            heart.style.height = `${size}px`;
+            heart.style.left = `${left}%`;
+            heart.style.animationDelay = `${delay}s`;
+            heart.style.animationDuration = `${duration}s`;
+            heart.style.backgroundColor = color;
+
+            const before = heart.querySelector(':before') || heart;
+            const after = heart.querySelector(':after') || heart;
+
+            heartBg.appendChild(heart);
+        }
+    }
+
+    // Text transition animation
+    function textTransition() {
+        const messages = [
+            document.getElementById('message1'),
+            document.getElementById('message2'),
+            document.getElementById('message3')
+        ];
+
+        let currentIndex = 0;
+
+        // Show first message
+        messages[currentIndex].classList.add('active');
+
+        // Cycle through messages
+        setInterval(() => {
+            messages[currentIndex].classList.remove('active');
+
+            currentIndex = (currentIndex + 1) % messages.length;
+
+            messages[currentIndex].classList.add('active');
+        }, 3000);
+    }
+
+    // Show apps after text transitions
+    function showApps() {
+        setTimeout(() => {
+            document.getElementById('appsContainer').classList.add('active');
+        }, 4000);
+    }
+
+    // Create sparkle effects
+    function createSparkles() {
+        const container = document.querySelector('.container');
+        const sparkleCount = 40;
+
+        for (let i = 0; i < sparkleCount; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+
+            const left = Math.random() * 100;
+            const top = Math.random() * 100;
+            const delay = Math.random() * 5;
+            const duration = Math.random() * 2 + 1;
+            const size = Math.random() * 8 + 4;
+
+            sparkle.style.left = `${left}%`;
+            sparkle.style.top = `${top}%`;
+            sparkle.style.width = `${size}px`;
+            sparkle.style.height = `${size}px`;
+            sparkle.style.animation = `sparkle ${duration}s ${delay}s infinite`;
+
+            container.appendChild(sparkle);
+        }
+
+        // Add sparkle animation to styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle {
+                0% {
+                    opacity: 0;
+                    transform: scale(0) rotate(0deg);
+                }
+                50% {
+                    opacity: 1;
+                    transform: scale(1) rotate(180deg);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(0) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // Add decorative circles
+    function addDecorations() {
+        const body = document.querySelector('body');
+
+        for (let i = 0; i < 5; i++) {
+            const circle = document.createElement('div');
+            circle.className = 'decoration circle';
+
+            const size = Math.random() * 150 + 50;
+            const left = Math.random() * 100;
+            const top = Math.random() * 100;
+            const opacity = Math.random() * 0.1 + 0.05;
+
+            circle.style.width = `${size}px`;
+            circle.style.height = `${size}px`;
+            circle.style.left = `${left}%`;
+            circle.style.top = `${top}%`;
+            circle.style.opacity = opacity;
+
+            body.appendChild(circle);
+        }
+    }
+
+    // Initialize everything when page loads
+    window.onload = function() {
+        createHearts();
+        textTransition();
+        showApps();
+        createSparkles();
+        addDecorations();
+    };
+</script>
+</body>
+</html>
